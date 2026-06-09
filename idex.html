@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Agrinho: Conexões do Agro com o Futuro | 1º Ano EM</title>
+    <!-- Fontes e estilo base -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&family=Playfair+Display:ital,wght@0,400;0,600;1,500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fefcf5;
+            color: #2c3a1f;
+            scroll-behavior: smooth;
+            line-height: 1.5;
+        }
+
+        /* paleta agro inspirada na terra, folhas e céu */
+        :root {
+            --verde-profundo: #1e3a1a;
+            --verde-agro: #2b6e3c;
+            --verde-claro: #6c9e4f;
+            --terra: #b97f44;
+            --areia: #e9d8b0;
+            --creme: #fff7e8;
+            --destaque-dourado: #e2a526;
+            --sombra: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Estilos globais */
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* header com parallax suave */
+        .hero {
+            background: linear-gradient(107deg, #0f2b0c 0%, #1f4a1a 100%);
+            position: relative;
+            overflow: hidden;
+            color: white;
+            padding: 5rem 0 7rem 0;
+            clip-path: polygon(0 0, 100% 0, 100% 92%, 0 100%);
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center 30%;
+            opacity: 0.22;
+            pointer-events: none;
+        }
+
+        .hero .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            background: rgba(255,215,130,0.2);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,215,130,0.5);
+        }
+
+        .hero h1 {
+            font-size: 3.8rem;
+            line-height: 1.2;
+            max-width: 850px;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 620px;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: white;
+            color: #1e3a1a;
+            padding: 0.8rem 2rem;
+            border-radius: 60px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.25s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-3px);
+        }
+
+        .btn-primary {
+            background: #e2a526;
+            color: #1e3a1a;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background: #d49117;
+            transform: translateY(-3px);
+        }
+
+        /* Seções gerais */
+        section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-sub {
+            color: #5a6e45;
+            max-width: 680px;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .underline-gold {
+            width: 80px;
+            height: 4px;
+            background: var(--destaque-dourado);
+            margin: 0.5rem 0 2rem 0;
+            border-radius: 4px;
+        }
+
+        /* cards e grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08);
+            border: 1px solid #f0e3ce;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 28px 36px -14px rgba(0,0,0,0.15);
+        }
+
+        .card-img {
+            height: 210px;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.02);
+        }
+
+        .card-content {
+            padding: 1.8rem;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: #eef4e4;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            color: #2b6e3c;
+            margin-bottom: 1rem;
+        }
+
+        /* galeria de imagens inspirada em agro conectado */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            border-radius: 28px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            background: #ddd;
+            box-shadow: 0 10px 18px rgba(0,0,0,0.1);
+            transition: 0.2s;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+        }
+
+        /* Citação bonita */
+        .quote-block {
+            background: #f3efdf;
+            border-radius: 40px;
+            padding: 2.8rem;
+            margin: 3rem 0;
+            text-align: center;
+            border-left: 6px solid var(--destaque-dourado);
+            font-style: italic;
+        }
+
+        .quote-text {
+            font-size: 1.6rem;
+            font-family: 'Playfair Display', serif;
+            color: #2a441f;
+            line-height: 1.4;
+        }
+
+        /* Seção de estatísticas / impacto */
+        .stats-flex {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+            background: white;
+            border-radius: 50px;
+            padding: 2rem 2rem;
+            box-shadow: 0 16px 28px -12px rgba(0,0,0,0.05);
+            margin-top: 2rem;
+        }
+        .stat {
+            flex: 1;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--verde-agro);
+            font-family: 'Inter', sans-serif;
+        }
+        .stat-label {
+            font-weight: 500;
+            color: #6f5a3a;
+        }
+
+        /* rodapé */
+        footer {
+            background: #171f12;
+            color: #e7e2cf;
+            padding: 3rem 0;
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        /* responsividade */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .quote-text {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* animação fade */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<header class="hero">
+    <div class="container">
+        <div class="hero-badge">
+            <i class="fas fa-seedling"></i> PROJETO AGRINHO 2025
+        </div>
+        <h1>Cultivando Saberes, <br>Conectando o Agro ao Amanhã</h1>
+        <p>Projeto interdisciplinar do 1º Ano do Ensino Médio: tecnologia, sustentabilidade e o coração do campo que alimenta o mundo.</p>
+        <div class="btn-group">
+            <a href="#projeto" class="btn btn-primary"><i class="fas fa-tractor"></i> Explorar projeto</a>
+            <a href="#galeria" class="btn btn-outline"><i class="fas fa-images"></i> Galeria Agro</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- Sobre o projeto agrinho -->
+    <section id="projeto">
+        <div class="container fade-up">
+            <span class="tag" style="background:#f1e8d4;"><i class="fas fa-graduation-cap"></i> 1º ANO · ENSINO MÉDIO</span>
+            <h2 class="section-title">Agrinho: do campo à consciência global</h2>
+            <div class="underline-gold"></div>
+            <p class="section-sub">Um movimento educativo que une jovens, escolas e comunidades para repensar a produção de alimentos, o cuidado com a terra e o desenvolvimento sustentável.</p>
+            <div class="cards-grid">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="card-content">
+                        <div class="tag">Inovação</div>
+                        <h3>Agro 4.0</h3>
+                        <p>Drones, sensores e biotecnologia aliados à preservação ambiental. O novo rural é inteligente e regenerativo.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464226184884-fa280b87c399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="card-content">
+                        <div class="tag">Sustentabilidade</div>
+                        <h3>Solo Vivo, Futuro Garantido</h3>
+                        <p>Práticas agroecológicas e manejo responsável que protegem nossas reservas e promovem segurança alimentar.</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1592982537447-7440770cbfc9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80');"></div>
+                    <div class="card-content">
+                        <div class="tag">Educação</div>
+                        <h3>Jovens Protagonistas</h3>
+                        <p>Alunos do 1º ano desenvolvem pesquisas de campo, hortas escolares e conexão com cooperativas agrícolas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Galeria de imagens temáticas -->
+    <section style="background: #fbf7ed;" id="galeria">
+        <div class="container fade-up">
+            <h2 class="section-title">🌾 Impressões do agro conectado</h2>
+            <div class="underline-gold"></div>
+            <p class="section-sub">Imagens que traduzem a essência do projeto: tecnologia, campo e pessoas construindo um futuro sustentável.</p>
+            <div class="gallery">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Campo de trigo e tecnologia"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1574943320219-553eb3a95b1a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1169&q=80" alt="Alunos em visita técnica"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1592415473714-a1da5ed97c2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Trator moderno e plantio direto"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1589923188652-9f87f70e885d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Horta vertical na escola"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Por do sol no campo com drones"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1171&q=80" alt="Floresta e agricultura sustentável"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossa pesquisa / Ação do 1º Ano -->
+    <section>
+        <div class="container fade-up">
+            <div class="stats-flex">
+                <div class="stat">
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">alunos engajados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">propriedades parceiras</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">protótipos de irrigação eficiente</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">compromisso com ODS</div>
+                </div>
+            </div>
+            <div class="quote-block">
+                <i class="fas fa-quote-left" style="color:#e2a526; font-size: 2rem; opacity: 0.6; margin-right: 10px;"></i>
+                <div class="quote-text">“O Agrinho nos mostrou que o agro não é só monocultura distante – ele pulsa em cada escolha que fazemos, desde a merenda escolar até o futuro das nossas carreiras.”</div>
+                <div style="margin-top: 1rem;">— Maria Clara, aluna líder do projeto 1º ano EM</div>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; margin-top: 2rem;">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="font-size: 1.8rem;">🌱 Nossa jornada: do diagnóstico à ação</h3>
+                    <p>Durante o semestre, os estudantes investigaram cadeias produtivas locais, criaram um plano de reflorestamento em parceria com a comunidade e desenvolveram um sistema de compostagem na escola. O resultado foi apresentado na Feira de Ciências do Agrinho, conectando saberes tradicionais e ferramentas digitais.</p>
+                    <a href="#" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 1rem; color: var(--verde-agro); font-weight: 600; text-decoration: none;"><span>Conheça o nosso e-book</span> <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div style="flex: 1; border-radius: 32px; overflow: hidden; box-shadow: 0 20px 26px -8px rgba(0,0,0,0.1);">
+                    <img src="https://images.unsplash.com/photo-1527525443983-6e60c75fff46?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" style="width:100%; height: 280px; object-fit: cover;" alt="Alunos em campo">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tecnologia e Inovação no Campo (diferencial) -->
+    <section style="background: linear-gradient(120deg, #eef3e6, #fff9ef);">
+        <div class="container fade-up">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap: 3rem; align-items: center;">
+                <div>
+                    <span class="tag" style="background: #cee2b6;"><i class="fas fa-microchip"></i> Agri-Tech</span>
+                    <h2 class="section-title" style="margin-top: 0.5rem;">Do código à colheita</h2>
+                    <div class="underline-gold" style="margin-bottom: 1.5rem;"></div>
+                    <p>Os alunos do 1º ano desenvolveram um dashboard interativo que monitora umidade do solo a partir de sensores IoT de baixo custo. O projeto despertou o interesse por carreiras de engenharia agronômica e ciência de dados, unindo programação à sustentabilidade.</p>
+                    <ul style="margin-top: 1rem; list-style: none;">
+                        <li><i class="fas fa-check-circle" style="color:#e2a526;"></i> Estação meteorológica escolar</li>
+                        <li><i class="fas fa-check-circle" style="color:#e2a526;"></i> Aplicativo de rastreabilidade de alimentos</li>
+                        <li><i class="fas fa-check-circle" style="color:#e2a526;"></i> Parceria com startups do agro</li>
+                    </ul>
+                </div>
+                <div style="background: #ffffffcc; backdrop-filter: blur(4px); border-radius: 48px; padding: 1.8rem; box-shadow: 0 8px 20px rgba(0,0,0,0.05);">
+                    <img src="https://images.unsplash.com/photo-1586771107445-d3ca888129ce?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80" style="width:100%; border-radius: 28px;" alt="tecnologia e agricultura">
+                    <p style="margin-top: 1rem; font-size: 0.9rem; text-align: center;">Experimento de agricultura de precisão em ambiente controlado</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos e próximos passos -->
+    <section>
+        <div class="container fade-up">
+            <h2 class="section-title">Vozes do campo-escola</h2>
+            <div class="underline-gold"></div>
+            <div class="cards-grid">
+                <div class="card" style="background: #fffcf0;">
+                    <div class="card-content">
+                        <i class="fas fa-chalkboard-user" style="font-size: 2rem; color: #b97f44;"></i>
+                        <h3>Professor orientador</h3>
+                        <p>"O projeto ressignificou o ensino de biologia e geografia, trazendo a realidade do agro para dentro da sala de aula com muito protagonismo juvenil."</p>
+                        <div class="tag">Prof. Antônio Carlos</div>
+                    </div>
+                </div>
+                <div class="card" style="background: #fffcf0;">
+                    <div class="card-content">
+                        <i class="fas fa-hand-holding-heart" style="font-size: 2rem; color: #b97f44;"></i>
+                        <h3>Produtor parceiro</h3>
+                        <p>"Ver os jovens interessados na conservação do solo e em tecnologias acessíveis me dá esperança de um agro cada vez mais consciente."</p>
+                        <div class="tag">Sebastião Mendes, agricultor familiar</div>
+                    </div>
+                </div>
+                <div class="card" style="background: #fffcf0;">
+                    <div class="card-content">
+                        <i class="fas fa-users" style="font-size: 2rem; color: #b97f44;"></i>
+                        <h3>Equipe Agrinho</h3>
+                        <p>Os resultados do 1º ano EM serão apresentados no Simpósio Regional de práticas sustentáveis. Conectamos o saber científico à tradição camponesa.</p>
+                        <div class="tag">Coordenação pedagógica</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chamada final com imagem de fundo elegante -->
+    <section style="position: relative; background: #2c4824; color: white; padding: 5rem 0; clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%); margin-top: 2rem;">
+        <div style="position: absolute; inset:0; background-image: url('https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'); background-size: cover; opacity: 0.15;"></div>
+        <div class="container" style="position: relative; text-align: center;">
+            <h2 style="font-size: 2.3rem; max-width: 700px; margin: 0 auto 1rem;">Faça parte da próxima safra de transformação</h2>
+            <p style="margin-bottom: 2rem; opacity: 0.9;">O Projeto Agrinho continua em 2025. Vamos juntos cultivar um amanhã mais verde, justo e produtivo.</p>
+            <a href="#" class="btn" style="background: var(--destaque-dourado); color: #1e3a1a; border: none;"><i class="fas fa-envelope"></i> Quero integrar a rede</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p><i class="fas fa-leaf"></i> Projeto Agrinho – 1º Ano do Ensino Médio | Colégio Estadual Agro sustentável</p>
+        <p style="margin-top: 0.8rem; font-size: 0.85rem;">Imagens utilizadas com licença Unsplash para fins educacionais — Agricultura, tecnologia e esperança.</p>
+        <div style="margin-top: 1rem;">
+            <i class="fab fa-instagram"></i>    <i class="fab fa-youtube"></i>    <i class="fab fa-whatsapp"></i>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // animação fade-up ao rolar a página
+    const faders = document.querySelectorAll('.fade-up');
+    const appearOptions = { threshold: 0.1, rootMargin: "0px 0px -60px 0px" };
+    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, appearOptions);
+    faders.forEach(fader => {
+        appearOnScroll.observe(fader);
+    });
+    // garantir que qualquer elemento que já esteja visível receba a classe - pequeno delay
+    window.addEventListener('load', () => {
+        faders.forEach(fader => {
+            const rect = fader.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                fader.classList.add('visible');
+            }
+        });
+    });
+</script>
+</body>
+</html>
